@@ -122,6 +122,10 @@ class Keycloak extends AbstractProvider
     {
         $base = $this->getBaseLogoutUrl();
         $params = $this->getAuthorizationParameters($options);
+        if (isset($params['id_token_hint']) && $params['redirect_uri']) {
+            $params['post_logout_redirect_uri'] = $params['redirect_uri'];
+        }
+        unset($params['redirect_uri']);
         $query = $this->getAuthorizationQuery($params);
 
         return $this->appendQuery($base, $query);

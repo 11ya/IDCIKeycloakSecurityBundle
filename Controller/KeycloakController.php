@@ -64,6 +64,7 @@ class KeycloakController extends AbstractController
         return new RedirectResponse($oAuth2Provider->getLogoutUrl([
             'state' => $values['session_state'],
             'redirect_uri' => $this->generateUrl($this->defaultTargetPath, [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'id_token_hint' => $values['id_token']
         ]));
     }
 }
