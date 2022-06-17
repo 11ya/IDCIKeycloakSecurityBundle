@@ -63,7 +63,9 @@ class KeycloakAuthenticator extends SocialAuthenticator
     {
         // Get local user & refresh its last login date
         $token = $this->container->get('security.token_storage')->getToken();
-        $this->container->get('app.user')->refreshLastLogin($token->getUser()->getLocalUser());
+        if ($this->container->has('app.user')) {
+            $this->container->get('app.user')->refreshLastLogin($token->getUser()->getLocalUser());
+        }
         return null;
     }
 
